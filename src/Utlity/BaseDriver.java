@@ -49,13 +49,11 @@ public class BaseDriver {
 
     public void myClick(WebElement element){
         wait.until(ExpectedConditions.elementToBeClickable(element));
-        scrollToElement(element);
         element.click();
     }
 
     public void mySendKeys(WebElement element, String yazi){
         wait.until(ExpectedConditions.visibilityOf(element));
-        scrollToElement(element);
         element.clear();
         element.sendKeys(yazi);
     }
