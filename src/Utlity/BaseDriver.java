@@ -4,6 +4,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
@@ -34,25 +36,40 @@ public class BaseDriver {
 
     @AfterClass
     public void bekleVeKapat() {
-        MyFunc.Bekle(5);
+        MyFunc.Bekle(3);
         driver.quit();
     }
 
-    public void elementeKadarKaydir(WebElement element) {
+
+    public void scrollToElement(WebElement element) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true);", element);
         MyFunc.Bekle(2);
-
     }
 
+    public void myClick(WebElement element){
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+        scrollToElement(element);
+        element.click();
+    }
+
+    public void mySendKeys(WebElement element, String yazi){
+        wait.until(ExpectedConditions.visibilityOf(element));
+        scrollToElement(element);
+        element.clear();
+        element.sendKeys(yazi);
+    }
+
+    public void moveToElement(WebElement element){
+        Actions aksiyonlar = new Actions(driver);
+        Action aksiyon = aksiyonlar.moveToElement(element).build();
+        aksiyon.perform();
+    }
     public void visibilityOf(WebElement e) {
-        WebDriverWait wait = new WebDriverWait(BaseDriver.driver, Duration.ofSeconds(20));
         wait.until(ExpectedConditions.visibilityOf(e));
     }
 
     public void toBeClickable(WebElement e) {
-        WebDriverWait wait = new WebDriverWait(BaseDriver.driver, Duration.ofSeconds(20));
         wait.until(ExpectedConditions.elementToBeClickable(e));
-
     }
 }
