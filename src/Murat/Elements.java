@@ -10,6 +10,7 @@ public class Elements extends BaseDriver {
         PageFactory.initElements(BaseDriver.driver,this);
     }
 
+
     @FindBy (xpath = "//a[text()='Register']")
     public WebElement register;
 
