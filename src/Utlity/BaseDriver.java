@@ -47,22 +47,23 @@ public class BaseDriver {
         MyFunc.Bekle(2);
     }
 
-    public void myClick(WebElement element){
+    public void myClick(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element));
         element.click();
     }
 
-    public void mySendKeys(WebElement element, String yazi){
+    public void mySendKeys(WebElement element, String yazi) {
         wait.until(ExpectedConditions.visibilityOf(element));
         element.clear();
         element.sendKeys(yazi);
     }
 
-    public void moveToElement(WebElement element){
+    public void moveToElement(WebElement element) {
         Actions aksiyonlar = new Actions(driver);
         Action aksiyon = aksiyonlar.moveToElement(element).build();
         aksiyon.perform();
     }
+
     public void visibilityOf(WebElement e) {
         wait.until(ExpectedConditions.visibilityOf(e));
     }
@@ -70,4 +71,7 @@ public class BaseDriver {
     public void toBeClickable(WebElement e) {
         wait.until(ExpectedConditions.elementToBeClickable(e));
     }
-}
+
+
+
+    }

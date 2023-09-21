@@ -24,13 +24,11 @@ public class US06_BilgisayarSiparisVerme extends BaseDriver {
         driver.get("https://demo.nopcommerce.com/");
 
         myClick(e.loginLink);
-        mySendKeys(e.emailInput, "aliCabbAr@gmail.com");
-        mySendKeys(e.passwordInput, "1234567890");
+        mySendKeys(e.emailInput, "aliCabbar@gmail.com");
+        mySendKeys(e.passwordInput, "123456");
         myClick(e.loginButton);
         visibilityOf(e.computersTab);
-        Actions aksiyonlar = new Actions(driver);
-        Action aksiyon = aksiyonlar.moveToElement(e.computersTab).build();
-        aksiyon.perform();
+        moveToElement(e.computersTab);
         myClick(e.desktopLink);
         visibilityOf(e.pageTitle);
         Assert.assertTrue(e.pageTitle.getText().toLowerCase().contains("desktop"), "Desktop sayfasinda degilsiniz");
@@ -39,7 +37,7 @@ public class US06_BilgisayarSiparisVerme extends BaseDriver {
         myClick(e.ramSelectButton);
         e.ramList.get(new Random().nextInt(e.ramList.size())).click();
         e.hddList.get(new Random().nextInt(e.hddList.size())).click();
-        moveToElement(e.addToCartButton);
+        scrollToElement(e.addToCartButton);
         myClick(e.addToCartButton);
         visibilityOf(e.shoppingCartMessage);
         Assert.assertTrue(e.shoppingCartMessage.getText().toLowerCase().contains("product has been added"));
