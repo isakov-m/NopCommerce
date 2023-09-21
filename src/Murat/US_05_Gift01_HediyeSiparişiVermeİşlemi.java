@@ -12,6 +12,7 @@ public class US_05_Gift01_HediyeSiparişiVermeİşlemi extends BaseDriver {
     public <def> void TestRegister(){
         Elements e=new Elements();
 
+
         e.myClick(e.register);
         e.myClick(e.cinsiyet);
         e.mySendKeys(e.firstname,"Murat");
