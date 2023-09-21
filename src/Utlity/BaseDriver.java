@@ -33,7 +33,6 @@ public class BaseDriver {
 
         driver.get("https://demo.nopcommerce.com");
     }
-
     @AfterClass
     public void bekleVeKapat() {
         MyFunc.Bekle(3);
