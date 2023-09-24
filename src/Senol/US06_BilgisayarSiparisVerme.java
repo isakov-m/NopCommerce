@@ -27,8 +27,8 @@ public class US06_BilgisayarSiparisVerme extends BaseDriver {
         mySendKeys(e.emailInput, "aliCabbar@gmail.com");
         mySendKeys(e.passwordInput, "123456");
         myClick(e.loginButton);
-        visibilityOf(e.computersTab);
-        moveToElement(e.computersTab);
+        visibilityOf(e.computersTabMenu);
+        moveToElement(e.computersTabMenu);
         myClick(e.desktopLink);
         visibilityOf(e.pageTitle);
         Assert.assertTrue(e.pageTitle.getText().toLowerCase().contains("desktop"), "Desktop sayfasinda degilsiniz");

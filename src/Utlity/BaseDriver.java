@@ -70,6 +70,10 @@ public class BaseDriver {
         wait.until(ExpectedConditions.elementToBeClickable(e));
     }
 
+    public void waitUrlContains(String text) {
+        wait.until(ExpectedConditions.urlContains(""));
+    }
+
 
 
     }
