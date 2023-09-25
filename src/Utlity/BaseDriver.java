@@ -32,6 +32,7 @@ public class BaseDriver {
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
         driver.get("https://demo.nopcommerce.com");
+
     }
     @AfterClass
     public void bekleVeKapat() {
