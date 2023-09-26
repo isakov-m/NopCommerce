@@ -1,0 +1,28 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="mySuite" parallel="tests" thread-count="2">
+
+    <test  name="myTest">
+        <groups>
+            <run>
+                <include name="parametreli"></include>
+            </run>
+        </groups>
+
+        <parameter name="searchAdobe" value="Adobe Photoshop CS4"></parameter>
+        <classes>
+            <class name="Main"></class>
+        </classes>
+    </test>
+
+    <test name="myTest2">
+        <groups>
+            <run>
+                <include name="parametreli"></include>
+            </run>
+        </groups>
+        <parameter name="searchNotebook" value="notebook"></parameter>
+        <classes>
+            <class name="Main"></class>
+        </classes>
+    </test>
+</suite>

@@ -17,8 +17,8 @@ import org.testng.annotations.Test;
             e.eml.sendKeys("testng@gmail.com");
             e.pss.sendKeys("123456");
             e.lbtn.click();
-            visibilityOf(e.dogrulama);
-            Assert.assertTrue(e.dogrulama.getText().contains("Log out"), "Dogrulanamadi");
+            visibilityOf(e.logoutDogrulama);
+            Assert.assertTrue(e.logoutDogrulama.getText().contains("Log out"), "Dogrulanamadi");
 
 
         }
