@@ -22,12 +22,11 @@ import org.openqa.selenium.support.PageFactory;
         @FindBy (xpath = "//button[@class='button-1 login-button' and text()='Log in']")
         public WebElement lbtn;
         @FindBy (xpath = "//a[@href='/logout']")
-        public  WebElement dogrulama;
+        public  WebElement logoutDogrulama;
         @FindBy(id = "small-searchterms")
         public  WebElement search;
         @FindBy(xpath = "//a[text()='Adobe Photoshop CS4']")
         public WebElement searcdgrlma;
-
 
     }
 

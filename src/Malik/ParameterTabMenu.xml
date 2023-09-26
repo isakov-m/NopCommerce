@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="mySuite">
+    <test  name="myTest">
+        <parameter name="searchText" value="notebook"></parameter>
+        <classes>
+            <class name="Malik.Main">
+
+            </class>
+        </classes>
+    </test>
+</suite>
