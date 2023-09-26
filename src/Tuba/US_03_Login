@@ -1,0 +1,8 @@
+Kullanıcı, web sitesinin başlangıç sayfasında "Login" butonuna tıklayarak giriş sayfasına erişebilmelidir.
+Giriş sayfasında, kullanıcıdan aşağıdaki bilgileri girmesi istenmelidir:
+E-posta Adresi (Email)
+Şifre (Password)
+Kullanıcı, veri sağlayıcı (data provider) yöntemi kullanarak önce 6 geçersiz e-posta ve şifre kombinasyonuyla giriş yapmayı denemelidir.
+Kullanıcı, geçersiz giriş denemeleri sırasında sistemden uyarı almalıdır.
+Ardından, veri sağlayıcı (data provider) tarafından sağlanan geçerli e-posta ve şifre kombinasyonuyla "LOGIN" düğmesine tıklayarak bu sefer başarılı bir şekilde giriş yapabilmelidir.
+Giriş işlemi sonucunda kullanıcının başarılı bir şekilde giriş yapıp yapmadığı doğrulanmalıdır.
