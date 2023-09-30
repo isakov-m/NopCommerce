@@ -10,8 +10,14 @@ public class Elements {
         PageFactory.initElements(BaseDriver.driver,this);
     }
 
+    @FindBy(xpath ="//input[@id='RememberMe']")
+    public WebElement rememberMe;
     @FindBy(linkText = "Log out")
     public List<WebElement> logout;
+    @FindBy(linkText = "Log out")
+    public WebElement logOut;
+    @FindBy(css = "div[class='message-error validation-summary-errors']")
+    public WebElement unsuccesfulMsg;
     @FindBy(linkText = "Register")
     public WebElement register;
     @FindBy(id = "gender-male")
@@ -137,11 +143,13 @@ public class Elements {
     @FindBy(id = "add-to-cart-button-44")
     public WebElement addBtn;
 
-    @FindBy(xpath = "//div[@id='bar-notification']/div/p")
-    public WebElement bosAssert;
+    @FindBy(css = "div[class='bar-notification error']>p")
+    public WebElement errorMsg;
+    @FindBy(css = "div[class='bar-notification success']>p")
+    public WebElement succesMsg;
 
-    @FindBy(xpath = "//*[@id='bar-notification']/div/p")
-    public  WebElement asert;
+
+
 
     @FindBy(xpath = "//span[@class='close']")
     public WebElement asertKapama;

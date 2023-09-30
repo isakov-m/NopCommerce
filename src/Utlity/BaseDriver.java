@@ -25,21 +25,20 @@ public class BaseDriver {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"parametreli"})
     public void baslangicIslemleri() {
         Logger logger = Logger.getLogger("");
         logger.setLevel(Level.SEVERE);
 
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(40));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
-        driver.get("https://demo.nopcommerce.com");
 
     }
-    @AfterMethod
+    @AfterMethod(groups = {"parametreli"})
     public void bekleVeKapat() {
         MyFunc.Bekle(3);
         driver.quit();

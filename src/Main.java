@@ -2,10 +2,12 @@
 import Utlity.BaseDriver;
 import Utlity.MyFunc;
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -15,10 +17,11 @@ import java.util.Random;
 
 public class Main extends BaseDriver {
 
-    @Test(enabled = false)
+    @Test(groups = {"Smoke", "UserRegistiration"})
     public void NOP01_Register() throws IOException {
         Elements e = new Elements();
 
+        driver.get("https://demo.nopcommerce.com");
         myClick(e.register);
         myClick(e.genderMale);
         mySendKeys(e.firstName, "Techno Eighteen");
@@ -26,7 +29,7 @@ public class Main extends BaseDriver {
         selectByIndexRandom(e.brthDay);
         selectByIndexRandom(e.brthMonth);
         selectByIndexRandom(e.brthYear);
-        mySendKeys(e.email, "tech1@mail.ru");
+        mySendKeys(e.email, "tech111111@mail.ru");
         mySendKeys(e.companyName, "TECH");
         mySendKeys(e.password, "DoubleGG");
         mySendKeys(e.confirmPassword, "DoubleGG");
@@ -34,28 +37,52 @@ public class Main extends BaseDriver {
         visibilityOf(e.registerMsg);
         Assert.assertTrue(e.registerMsg.getText().equals("Your registration completed"), "Kayit olusturulamadi.");
 
-        if (e.logout.isEmpty()) {
+        if (e.logout.size()<=0) {
             TakesScreenshot ts = (TakesScreenshot) driver;
             File hafizadakiHali = ts.getScreenshotAs(org.openqa.selenium.OutputType.FILE);
-            FileUtils.copyFile(hafizadakiHali, new File("SC\\lofinFail.png"));
+            FileUtils.copyFile(hafizadakiHali, new File("SC\\loginFail.png"));
         }
     }
 
-    @Test(enabled = false)
+    @Test(groups = {"LoginTest", "Smoke"})
     public void NOP02_Login() {
         Elements e = new Elements();
-
+        driver.get("https://demo.nopcommerce.com");
         myClick(e.login);
-        mySendKeys(e.email, "tech1@mail.ru");
+        mySendKeys(e.email, "qwerty@mail.ru");
         mySendKeys(e.password, "DoubleGG");
         myClick(e.loginBtn);
         visibilityOf(e.logoutDogrulama);
         Assert.assertTrue(e.logoutDogrulama.getText().contains("Log out"), "Login islemi basarisiz oldu.");
     }
 
+    @Test(dataProvider = "datalar", groups = {"LoginTest", "Smoke"})
+    public void NOP03(String email, String password) {
 
-    @Test
+        Elements e = new Elements();
+        driver.get("https://demo.nopcommerce.com");
 
+        myClick(e.login);
+        e.email.sendKeys(email);
+        e.password.sendKeys(password);
+        myClick(e.rememberMe);
+        myClick(e.loginBtn);
+        String loginS = driver.getCurrentUrl();
+        if (driver.getCurrentUrl().equals(loginS)) {
+            Assert.assertTrue(e.unsuccesfulMsg.getText().contains("Login was unsuccessful"), "Login in Hata Mesaj verilmedi");
+        } else {
+            Assert.assertEquals(e.logOut.getText(), "Log out", "Hata");
+        }
+    }
+
+    @DataProvider
+    public Object[][] datalar() {
+        return new Object[][]{{"tuba_caglar@hotmail.de", "sifre"}, {"tuba_caglar@hotmail.de", "sifre"},
+                {"tuba_caglar@hotmail.de", ""}, {"tuba_caglar@hotmail.de", ""}, {"tuba_caglar@hotmail.de", "sifre"}, {"tuba_caglar@hotmail.de", "b"}, {"tuba_caglar@hotmail.de", "TubaXXX"}};
+    }
+
+
+    @Test(groups = {"TAB Menu", "UI Testing"})
     public void NOP04_TabMenu() throws InterruptedException {
 
         Elements e = new Elements();
@@ -168,7 +195,7 @@ public class Main extends BaseDriver {
 
     }
 
-    @Test(groups = {"parametreli"},enabled = false)
+    @Test(groups = {"parametreli", "UI Testing", "Search", "TAB Menu", "Regression"})
     @Parameters("searchNotebook")
     public void NOP04_TabMenu2(String searchtext) {
         Elements e = new Elements();
@@ -194,7 +221,7 @@ public class Main extends BaseDriver {
         } while (bulundu);
     }
 
-    @Test
+    @Test(groups = {"UI Testing", "TAB Menu", "Siparis Testleri"})
     public void NOP05_GiftCard() {
         Elements e = new Elements();
 
@@ -205,19 +232,19 @@ public class Main extends BaseDriver {
         myClick(e.giftCard);
         myClick(e.addToCartBtn);
         myClick(e.addBtn);
-        Assert.assertTrue(e.bosAssert.getText().equals("Enter valid recipient name"));
+        Assert.assertTrue(e.errorMsg.getText().equals("Enter valid recipient name"));
         myClick(e.asertKapama);
         mySendKeys(e.recipientName, "Abbas");
         mySendKeys(e.senderName, "Murat");
         mySendKeys(e.giftMesaj, "GÜLE GÜLE KULLAN!");
         myClick(e.addBtn);
-        Assert.assertTrue(e.asert.getText().equals("The product has been added to your shopping cart"));
-        myClick(e.asertKapama);
+        visibilityOf(e.succesMsg);
+        System.out.println("e.Assert.getText() = " + e.succesMsg.getText());
+        Assert.assertTrue(e.succesMsg.getText().contains("The product has been added to your "), "Gift Card eklenemedi.");
     }
 
 
-    @Test
-
+    @Test(groups = {"UI Testing", "TAB Menu", "Order Tests"})
     public void NOP06_Siparis() {
 
         Elements e = new Elements();
@@ -239,14 +266,13 @@ public class Main extends BaseDriver {
         Assert.assertTrue(e.shoppingCartMessage.getText().toLowerCase().contains("product has been added"));
     }
 
-    @Test(groups = {"parametreli"},enabled = false)
+    @Test(groups = {"parametreli", "UI Testing", "Search", "Smoke", "Regression"})
     @Parameters("searchAdobe")
     public void NOP07_ParametreliArama(String aranacakKelime) {
         Elements e = new Elements();
 
         Login();
-        visibilityOf(e.search);
-        e.search.sendKeys(aranacakKelime + Keys.ENTER);
+        mySendKeys(e.search, aranacakKelime + Keys.ENTER);
         visibilityOf(e.searcdgrlma);
         Assert.assertTrue(e.searcdgrlma.getText().contains("Adobe Photoshop CS4"), "Dogrulanamadi");
         bekleVeKapat();
@@ -259,7 +285,7 @@ public class Main extends BaseDriver {
         driver.get("https://demo.nopcommerce.com");
         MyFunc.Bekle(5);
         myClick(e.login);
-        mySendKeys(e.email, "tech1@mail.ru");
+        mySendKeys(e.email, "qwerty@mail.ru");
         mySendKeys(e.password, "DoubleGG");
         myClick(e.loginBtn);
         visibilityOf(e.logoutDogrulama);
